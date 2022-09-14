@@ -13,6 +13,10 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
 
           <link rel="shortcut icon" href="/favicon.ico" />
+          <link
+            href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
+            rel="stylesheet"
+          />
 
           <link
             rel="stylesheet"
