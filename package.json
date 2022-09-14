@@ -10,16 +10,31 @@
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   },
   "dependencies": {
+    "@date-io/jalaali": "^2.15.0",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
+    "@mapbox/mapbox-gl-directions": "^4.1.0",
+    "@mapbox/search-js-react": "^1.0.0-beta.13",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "@mui/x-date-pickers": "^5.0.0-beta.5",
+    "autosuggest-highlight": "^3.3.4",
+    "axios": "^0.27.2",
+    "date-fns": "^2.29.1",
+    "formik": "^2.2.9",
+    "google-map-react": "^2.2.0",
+    "lodash": "^4.17.21",
+    "mapbox-gl": "^2.9.2",
+    "moment": "^2.29.4",
+    "moment-jalaali": "^0.9.6",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-google-maps": "^9.4.5",
+    "react-map-gl": "^7.0.18"
   },
   "devDependencies": {
     "eslint": "latest",
