@@ -3,7 +3,7 @@ import { Grid, Paper, Typography } from "@mui/material";
 import OrderForm from "../components/organisms/OrderForm";
 import Layout from "../components/organisms/Layout";
 
-const About = () => {
+const Register = () => {
   return (
     <>
       <Layout>
@@ -31,7 +31,7 @@ const About = () => {
               flexDirection: "column",
             }}
           >
-            <Typography variant="h4">About</Typography>
+            <Typography variant="h4">Register</Typography>
           </Grid>
         </Grid>
       </Layout>
@@ -39,4 +39,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Register;
