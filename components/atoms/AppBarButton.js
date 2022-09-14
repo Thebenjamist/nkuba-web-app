@@ -1,6 +1,8 @@
 import { Button, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
-const AppBarButton = ({ children }) => {
+const AppBarButton = ({ children, navigate }) => {
+  const router = useRouter();
   return (
     <Button
       sx={{
@@ -11,8 +13,9 @@ const AppBarButton = ({ children }) => {
         borderRadius: 0,
         textAlign: "center",
       }}
+      onClick={() => router.push(navigate)}
     >
-      <Typography sx={{ fontWeight: 700, fontSize: 20 }}>{children}</Typography>
+      <Typography sx={{ fontWeight: 400, fontSize: 18 }}>{children}</Typography>
     </Button>
   );
 };
