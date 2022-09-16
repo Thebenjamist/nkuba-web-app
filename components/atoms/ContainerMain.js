@@ -1,18 +1,16 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 
 const ContainerMain = ({ children }) => (
-  <Container
+  <Box
     sx={{
-      padding: "20px",
-      minHeight: "calc(100vh - 100px)",
+      minHeight: "calc(100vh - 56px)",
       justifyContent: "center",
-      alignItems: "center",
-      alignContent: "center",
       display: "flex",
+      alignItems: "center",
     }}
   >
     {children}
-  </Container>
+  </Box>
 );
 
 export default ContainerMain;

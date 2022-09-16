@@ -8,14 +8,14 @@ const AppBarButton = ({ children, navigate }) => {
       sx={{
         textTransform: "none",
         color: "primary.contrastText",
-        height: "100px",
+        height: "56px",
         width: "100%",
         borderRadius: 0,
         textAlign: "center",
       }}
       onClick={() => router.push(navigate)}
     >
-      <Typography sx={{ fontWeight: 400, fontSize: 18 }}>{children}</Typography>
+      <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{children}</Typography>
     </Button>
   );
 };
