@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base_url = "http://localhost:3000";
+const base_url = process.env.NEXT_PUBLIC_API_URL;
 
 export const createOrder = async ({ data }) => {
   const res = await axios
