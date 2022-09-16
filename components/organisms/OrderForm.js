@@ -52,7 +52,6 @@ const OrderForm = () => {
             setOrderForm={setOrderForm}
           />
         )}
-        {console.log("Order: ", orderForm)}
 
         {activeStep === 1 && (
           <WhenForm
