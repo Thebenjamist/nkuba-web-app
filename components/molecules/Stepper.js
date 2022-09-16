@@ -29,7 +29,7 @@ const styles = (theme) => ({
 });
 
 const StepperMain = ({ activeStep, steps }) => (
-  <Box sx={{ width: "100%", marginBottom: "24px" }}>
+  <Box sx={{ width: "100%", marginBottom: "16px" }}>
     <Stepper activeStep={activeStep} alternativeLabel>
       {steps.map((label) => (
         <Step key={label}>

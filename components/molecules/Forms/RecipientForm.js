@@ -51,7 +51,7 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
             flexDirection: "column",
           }}
         >
-          <Grid item xs={12} sx={{ marginBottom: "24px" }}>
+          <Grid item xs={12} sx={{ marginBottom: "8px" }}>
             <TextField
               placeholder="Name"
               fullWidth
@@ -66,7 +66,7 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} sx={{ marginBottom: "24px" }}>
+          <Grid item xs={12} sx={{ marginBottom: "8px" }}>
             <TextField
               placeholder="i.e 0971214488"
               fullWidth
@@ -82,7 +82,7 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} sx={{ marginBottom: "24px" }}>
+          <Grid item xs={12} sx={{ marginBottom: "16px" }}>
             <PlacesAutofill label="Drop-off location" setCoords={setCoords} />
           </Grid>
 
@@ -93,7 +93,7 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
               justifyContent: "center",
               display: "flex",
               alignItems: "center",
-              marginBottom: "24px",
+              marginBottom: "16px",
             }}
           >
             <MapBox lat={coords.lat} lng={coords.lng} setCoords={setCoords} />
