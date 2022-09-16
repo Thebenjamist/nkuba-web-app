@@ -23,7 +23,7 @@ const AppBarTop = () => {
       sx={{
         backgroundColor: "secondary.main",
         justifyContent: "center",
-        height: "100px",
+        height: "56px",
       }}
     >
       <Box
@@ -36,32 +36,42 @@ const AppBarTop = () => {
       >
         <Grid
           container
-          sx={{ display: "flex", justifyContent: "left", alignItems: "center" }}
+          sx={{
+            display: "flex",
+            justifyContent: "left",
+            alignItems: "center",
+          }}
         >
-          <BoltOutlined sx={{ fontSize: 48 }} color="primary" />
+          <BoltOutlined sx={{ fontSize: 32 }} color="primary" />
           <Typography variant="h5">Nkuba Logistics</Typography>
         </Grid>
 
-        <Grid container sx={{ display: { xs: "none", md: "flex" } }}>
+        <Grid
+          container
+          sx={{
+            display: { xs: "none", md: "flex" },
+            justifyContent: "center",
+          }}
+        >
           {router.route !== "/" && (
-            <Grid item xs={3}>
+            <Grid item xs={12}>
               <AppBarButton navigate="/">Order</AppBarButton>
             </Grid>
           )}
 
-          {router.route !== "/about" && (
+          {/* {router.route !== "/about" && (
             <Grid item xs={3}>
               <AppBarButton navigate="about">About</AppBarButton>
             </Grid>
-          )}
+          )} */}
 
           {router.route !== "/track" && (
-            <Grid item xs={3}>
+            <Grid item xs={12}>
               <AppBarButton navigate="track">Track</AppBarButton>
             </Grid>
           )}
 
-          {router.route !== "/register" && (
+          {/* {router.route !== "/register" && (
             <Grid item xs={3}>
               <AppBarButton navigate="register">Register</AppBarButton>
             </Grid>
@@ -70,7 +80,7 @@ const AppBarTop = () => {
             <Grid item xs={3}>
               <AppBarButton navigate="login">Login</AppBarButton>
             </Grid>
-          )}
+          )} */}
         </Grid>
       </Box>
     </AppBar>

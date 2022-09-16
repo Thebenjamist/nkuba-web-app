@@ -45,7 +45,7 @@ const MapBox = ({ lat, lng, setCoords }) => {
           maxZoom={16}
           onDrag={() => setMapCenter()}
           onClick={handleMapClick}
-          style={{ width: "100%", height: 400 }}
+          style={{ width: "100%", height: 300 }}
           mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
         >
