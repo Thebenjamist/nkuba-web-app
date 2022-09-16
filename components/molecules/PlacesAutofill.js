@@ -56,7 +56,6 @@ export default function GoogleMaps({ setCoords, label }) {
   const getCoords = React.useMemo(
     () =>
       throttle((request, callback) => {
-        console.log("get location");
         geocoder.current
           .geocode({ placeId: request.place_id }, callback)
           .then((res) => {
