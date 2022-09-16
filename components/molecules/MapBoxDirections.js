@@ -15,7 +15,7 @@ const MapBox = ({ start, end }) => {
         `https://api.mapbox.com/directions/v5/mapbox/driving/${tripStart};${tripEnd}?alternatives=false&geometries=geojson&language=en&overview=simplified&steps=false&access_token=${process.env.NEXT_PUBLIC_MAPBOX_KEY}`
       )
       .then((res) => setDirections(res.data.routes[0]))
-      .catch((err) => console.log("Err: ", err));
+      .catch((err) => console.log("MapErr: ", err));
   };
 
   React.useEffect(() => {
