@@ -2,9 +2,29 @@ import { Grid, Typography, Paper, Container } from "@mui/material";
 import MapBoxDirections from "./MapBoxDirections";
 import { useState } from "react";
 import PrimaryButton from "../atoms/PrimaryButton";
+import { createOrder } from "../../services/api/orders";
+import { useSnackbar } from "notistack";
 
 const OrderSummary = ({ orderForm, step, setActiveStep, setOrderForm }) => {
-  const [coords, setCoords] = useState({ lat: -15.3875, lng: 28.3228 });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const submitOrder = async () => {
+    setLoading(true);
+    createOrder({ data: orderForm })
+      .then(() => {
+        setLoading(false);
+        setSuccess(true);
+        enqueueSnackbar("Order placed successfully", { variant: "success" });
+      })
+      .catch((err) => {
+        setLoading(false);
+        enqueueSnackbar(`Failed to place order. ${err}`, {
+          variant: "error",
+        });
+      });
+  };
 
   return (
     <>
@@ -81,9 +101,7 @@ const OrderSummary = ({ orderForm, step, setActiveStep, setOrderForm }) => {
                   marginBottom: "24px",
                 }}
               >
-                {console.log("Order form: ", orderForm)}
                 <MapBoxDirections
-                  setCoords={setCoords}
                   start={orderForm.senderCoords}
                   end={orderForm.recipientCoords}
                 />
@@ -118,7 +136,7 @@ const OrderSummary = ({ orderForm, step, setActiveStep, setOrderForm }) => {
             display: "flex",
           }}
         >
-          <PrimaryButton type="submit">Order</PrimaryButton>
+          <PrimaryButton onClick={submitOrder}>Order</PrimaryButton>
         </Grid>
       </Grid>
     </>
