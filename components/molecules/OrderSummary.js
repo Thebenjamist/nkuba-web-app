@@ -55,7 +55,8 @@ const OrderSummary = ({
           {tracker}
         </Typography>
         <Typography sx={{ textAlign: "center", paddingBottom: 1 }}>
-          Your order is currently pending, will be confirmed upon payment
+          Your order is currently pending, you will be contacted to complete
+          payment
         </Typography>
       </Modal>
 
