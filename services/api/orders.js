@@ -28,14 +28,14 @@ const getOrder = async ({ id }) => {
   return res;
 };
 
-const getOrderByRef = async ({ ref }) => {
+export const getOrderByRef = async ({ ref }) => {
   const res = await axios
     .get(`${base_url}/get-order-by-ref/${ref}`)
     .then((res) => {
       return res.data;
     })
     .catch((err) => {
-      return err;
+      throw new Error(err?.response?.data?.message);
     });
 
   return res;

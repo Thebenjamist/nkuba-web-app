@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import AppBarButton from "../atoms/AppBarButton";
 import { BoltOutlined } from "@mui/icons-material";
 import { Router } from "next/router";
-
+import NkubaLogo from "../../src/logos/1";
 const AppBarTop = () => {
   const router = useRouter();
   return (
@@ -22,6 +22,7 @@ const AppBarTop = () => {
       position="relative"
       sx={{
         backgroundColor: "secondary.main",
+
         justifyContent: "center",
         height: "56px",
       }}
@@ -42,14 +43,13 @@ const AppBarTop = () => {
             alignItems: "center",
           }}
         >
-          <BoltOutlined sx={{ fontSize: 32 }} color="primary" />
-          <Typography variant="h5">Nkuba Logistics</Typography>
+          <NkubaLogo height={50} />
         </Grid>
 
         <Grid
           container
           sx={{
-            display: { xs: "none", md: "flex" },
+            display: "flex",
             justifyContent: "center",
           }}
         >

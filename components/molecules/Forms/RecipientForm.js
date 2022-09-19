@@ -99,7 +99,7 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
             <MapBox lat={coords.lat} lng={coords.lng} setCoords={setCoords} />
           </Grid>
 
-          <Grid item container>
+          <Grid item container spacing={1}>
             <Grid
               item
               xs={12}

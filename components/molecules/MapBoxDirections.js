@@ -60,7 +60,7 @@ const MapBox = ({ start, end }) => {
           }}
           minZoom={12}
           maxZoom={16}
-          style={{ width: "100%", height: 320 }}
+          style={{ width: "100%", height: 300 }}
           mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE}
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
         >
