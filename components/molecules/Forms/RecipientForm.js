@@ -4,6 +4,8 @@ import MapBox from "../MapBox";
 import { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import PrimaryButton from "../../atoms/PrimaryButton";
+import SecondaryButton from "../../atoms/SecondaryButton";
+
 import theme from "../../../src/theme";
 
 const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
@@ -110,9 +112,9 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
                 display: "flex",
               }}
             >
-              <PrimaryButton onClick={() => setActiveStep(1)}>
+              <SecondaryButton onClick={() => setActiveStep(1)}>
                 Back
-              </PrimaryButton>
+              </SecondaryButton>
             </Grid>
             <Grid
               item
