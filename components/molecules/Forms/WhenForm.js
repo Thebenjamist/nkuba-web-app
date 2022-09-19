@@ -1,11 +1,15 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { TimePicker } from "@mui/x-date-pickers";
+import { MobileDatePicker, MobileTimePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
 import PrimaryButton from "../../atoms/PrimaryButton";
 import { Form, Formik } from "formik";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 const WhenForm = ({ setActiveStep, setOrderForm, orderForm, step }) => {
   const validate = (values) => {
@@ -53,12 +57,19 @@ const WhenForm = ({ setActiveStep, setOrderForm, orderForm, step }) => {
         >
           <Grid item xs={12} sx={{ marginBottom: "24px" }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
+              <MobileDatePicker
                 label="Pickup date"
                 inputFormat="dd/MM/yyyy"
                 value={values.pickupDate}
                 onChange={(value) => setFieldValue("pickupDate", value, true)}
                 minDate={new Date()}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <CalendarMonthIcon />
+                    </InputAdornment>
+                  ),
+                }}
                 // onError={(err) => setStatus("aoia")}
                 renderInput={(params) => (
                   <TextField
@@ -76,13 +87,24 @@ const WhenForm = ({ setActiveStep, setOrderForm, orderForm, step }) => {
 
           <Grid item xs={12} sx={{ marginBottom: "24px" }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <TimePicker
+              <MobileTimePicker
                 label="Pickup time"
                 value={values.pickupTime}
                 onChange={(value) => setFieldValue("pickupTime", value, true)}
-                minTime={new Date(0, 0, 0, 6)}
+                minTime={
+                  new Date(values.pickupDate).getDate() === new Date().getDate()
+                    ? new Date(0, 0, 0, new Date().getHours(), 0, 0, 0)
+                    : new Date(0, 0, 0, 6)
+                }
                 maxTime={new Date(0, 0, 0, 17, 0)}
                 ampm={false}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <AccessTimeIcon />
+                    </InputAdornment>
+                  ),
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -97,7 +119,7 @@ const WhenForm = ({ setActiveStep, setOrderForm, orderForm, step }) => {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item container>
+          <Grid item container spacing={2}>
             <Grid
               item
               xs={12}
