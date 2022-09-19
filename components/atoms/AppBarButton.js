@@ -12,10 +12,13 @@ const AppBarButton = ({ children, navigate }) => {
         width: "100%",
         borderRadius: 0,
         textAlign: "center",
+        "&:hover": {
+          backgroundColor: "primary.light",
+        },
       }}
       onClick={() => router.push(navigate)}
     >
-      <Typography sx={{ fontWeight: 400, fontSize: 16 }}>{children}</Typography>
+      <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{children}</Typography>
     </Button>
   );
 };

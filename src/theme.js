@@ -74,7 +74,7 @@ const theme = createTheme({
     },
     text: {
       primary: colors.eerie_black,
-      secondary: colors.light_slate_grey,
+      secondary: colors.eerie_black,
       alt: colors.light_slate_grey,
     },
   },
