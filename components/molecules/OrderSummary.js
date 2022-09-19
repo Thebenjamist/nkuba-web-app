@@ -98,6 +98,7 @@ const OrderSummary = ({
           }}
         >
           <Typography sx={{ fontWeight: 800, fontSize: 20, marginLeft: 1 }}>
+            {orderForm?.code.toString().toUpperCase()}{" "}
             {orderForm?.status.toString().toUpperCase()}
           </Typography>
         </Paper>
