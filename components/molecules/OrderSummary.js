@@ -87,21 +87,24 @@ const OrderSummary = ({
           flex: 1,
         }}
       >
-        <Paper
-          sx={{
-            p: 1,
-            marginBottom: 2,
-            display: track ? "flex" : "none",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "primary.main",
-          }}
-        >
-          <Typography sx={{ fontWeight: 800, fontSize: 20, marginLeft: 1 }}>
-            {orderForm?.code.toString().toUpperCase()}{" "}
-            {orderForm?.status.toString().toUpperCase()}
-          </Typography>
-        </Paper>
+        {track && (
+          <Paper
+            sx={{
+              p: 1,
+              marginBottom: 2,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "primary.main",
+            }}
+          >
+            <Typography sx={{ fontWeight: 800, fontSize: 20, marginLeft: 1 }}>
+              {orderForm?.code.toString().toUpperCase()}
+              {" - "}
+              {orderForm?.status.toString().toUpperCase()}
+            </Typography>
+          </Paper>
+        )}
         <Box
           sx={{
             display: "flex",
