@@ -36,7 +36,6 @@ const OrderForm = () => {
     <Paper
       sx={{
         padding: "16px",
-        marginTop: "8px",
         backgroundColor: "secondary.light",
         width: "100%",
         height: "100%",

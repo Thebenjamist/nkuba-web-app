@@ -9,30 +9,27 @@ const Home = () => {
         <Grid
           container
           sx={{
-            height: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            flexDirection: "column",
-            width: "100%",
           }}
         >
           <Grid
             item
             xs={12}
-            md={8}
+            sm={8}
+            md={6}
             sx={{
               alignItems: "center",
               justifyContent: "center",
               alignContent: "center",
               display: "flex",
-              padding: "20px",
+              padding: "8px",
               flexDirection: "column",
               width: "100%",
               flex: 1,
             }}
           >
-            <Typography variant="h4">Place an order</Typography>
             <OrderForm />
           </Grid>
         </Grid>
