@@ -7,9 +7,11 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { MobileDatePicker, MobileTimePicker } from "@mui/x-date-pickers";
 import { useState } from "react";
 import PrimaryButton from "../../atoms/PrimaryButton";
+
 import { Form, Formik } from "formik";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import SecondaryButton from "../../atoms/SecondaryButton";
 
 const WhenForm = ({ setActiveStep, setOrderForm, orderForm, step }) => {
   const validate = (values) => {
@@ -130,9 +132,9 @@ const WhenForm = ({ setActiveStep, setOrderForm, orderForm, step }) => {
                 display: "flex",
               }}
             >
-              <PrimaryButton onClick={() => setActiveStep(0)}>
+              <SecondaryButton onClick={() => setActiveStep(0)}>
                 Back
-              </PrimaryButton>
+              </SecondaryButton>
             </Grid>
             <Grid
               item

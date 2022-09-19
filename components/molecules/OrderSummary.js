@@ -5,6 +5,7 @@ import PrimaryButton from "../atoms/PrimaryButton";
 import { createOrder } from "../../services/api/orders";
 import { useSnackbar } from "notistack";
 import Modal from "../organisms/Modal";
+import SecondaryButton from "../atoms/SecondaryButton";
 
 const OrderSummary = ({
   orderForm,
@@ -219,9 +220,15 @@ const OrderSummary = ({
                 display: "flex",
               }}
             >
-              <PrimaryButton onClick={() => setActiveStep(0)}>
-                {success ? "Order Again" : "Start Again"}
-              </PrimaryButton>
+              {success ? (
+                <PrimaryButton onClick={() => setActiveStep(0)}>
+                  Order Again
+                </PrimaryButton>
+              ) : (
+                <SecondaryButton onClick={() => setActiveStep(0)}>
+                  Start Again
+                </SecondaryButton>
+              )}
             </Grid>
             {!success && (
               <Grid
