@@ -93,6 +93,7 @@ const OrderSummary = ({
             display: track ? "flex" : "none",
             justifyContent: "center",
             alignItems: "center",
+            backgroundColor: "primary.main",
           }}
         >
           <Typography sx={{ fontWeight: 800, fontSize: 20, marginLeft: 1 }}>
