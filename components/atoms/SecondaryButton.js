@@ -1,15 +1,18 @@
 import { Button, Typography } from "@mui/material";
 import { Children } from "react";
 
-const PrimaryButton = (props) => (
+const SecondaryButton = (props) => (
   <Button
     sx={{
-      backgroundColor: "primary.main",
+      backgroundColor: "secondary.main",
       minWidth: "140px",
       textTransform: "none",
+      borderWidth: 1,
+      borderColor: "primary.main",
+      borderStyle: "solid",
       padding: "12px",
       "&:hover": {
-        backgroundColor: "primary.light",
+        backgroundColor: "#f0f0f0",
       },
     }}
     {...props}
@@ -17,7 +20,7 @@ const PrimaryButton = (props) => (
     <Typography
       sx={{
         fontWeight: 700,
-        color: "text.primary",
+        color: "primary.main",
       }}
     >
       {props.children}
@@ -25,4 +28,4 @@ const PrimaryButton = (props) => (
   </Button>
 );
 
-export default PrimaryButton;
+export default SecondaryButton;
