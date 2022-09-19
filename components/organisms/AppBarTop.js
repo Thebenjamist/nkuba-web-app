@@ -32,7 +32,7 @@ const AppBarTop = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          padding: "0px 16px",
+          paddingLeft: "16px",
         }}
       >
         <Grid
