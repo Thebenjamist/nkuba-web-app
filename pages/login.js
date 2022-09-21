@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Grid, Paper, Typography } from "@mui/material";
-import OrderForm from "../components/organisms/OrderForm";
+import { Grid } from "@mui/material";
+import TrackingForm from "../components/organisms/TrackingForm";
 import Layout from "../components/organisms/Layout";
 
 const Login = () => {
@@ -9,29 +9,30 @@ const Login = () => {
       <Layout>
         <Grid
           container
-          style={{ height: "100%" }}
-          direction={{ xs: "column-reverse", md: "row" }}
           sx={{
-            height: "100%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
+          maxWidth="lg"
         >
           <Grid
             item
             xs={12}
+            sm={8}
             md={6}
             sx={{
               alignItems: "center",
               justifyContent: "center",
               alignContent: "center",
               display: "flex",
-              padding: "20px",
+              padding: "8px",
               flexDirection: "column",
+              width: "100%",
+              flex: 1,
             }}
           >
-            <Typography variant="h4">Login</Typography>
+            <TrackingForm />
           </Grid>
         </Grid>
       </Layout>
