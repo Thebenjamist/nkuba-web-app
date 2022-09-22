@@ -7,15 +7,8 @@ import {
   CircularProgress,
   Button,
 } from "@mui/material";
-import MapBoxDirections from "./MapBoxDirections";
-import { useState } from "react";
 import PrimaryButton from "../atoms/PrimaryButton";
-import { createOrder } from "../../services/api/orders";
-import { useSnackbar } from "notistack";
-import Modal from "../organisms/Modal";
-import SecondaryButton from "../atoms/SecondaryButton";
 import { UserContext } from "../../services/contexts/userContext";
-import { Router } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 const TrackingOrdersList = ({

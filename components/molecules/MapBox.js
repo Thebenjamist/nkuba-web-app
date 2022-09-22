@@ -1,4 +1,4 @@
-import { Place } from "@mui/icons-material";
+import Place from "@mui/icons-material/Place";
 import { Paper, Typography } from "@mui/material";
 import * as React from "react";
 import Map, { LngLatBounds, Marker } from "react-map-gl";

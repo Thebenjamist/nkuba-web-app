@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 
-import { Menu as MenuIcon } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import AppBarButton from "../atoms/AppBarButton";
 import NkubaLogo from "../../src/logos/1";
