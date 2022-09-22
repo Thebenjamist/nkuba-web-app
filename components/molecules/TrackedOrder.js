@@ -9,85 +9,34 @@ import Modal from "../organisms/Modal";
 import SecondaryButton from "../atoms/SecondaryButton";
 import { UserContext } from "../../services/contexts/userContext";
 
-const OrderSummary = ({ orderForm, setActiveStep }) => {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [tracker, setTracker] = useState();
+const OrderSummary = ({ orderForm, setOrderForm }) => {
   const { session } = React.useContext(UserContext);
-
-  const { enqueueSnackbar } = useSnackbar();
-
-  const submitOrder = async () => {
-    setLoading(true);
-    if (session && session !== loading) {
-      orderForm.user_id = session.id;
-    }
-    createOrder({ data: orderForm })
-      .then((res) => {
-        setLoading(false);
-        setSuccess(true);
-        setTracker(res?.data?.code);
-        setOpen(true);
-        enqueueSnackbar("Order placed successfully", { variant: "success" });
-      })
-      .catch((err) => {
-        setLoading(false);
-        enqueueSnackbar(`Failed to place order. ${err}`, {
-          variant: "error",
-        });
-      });
-  };
 
   return (
     <>
-      <Modal open={open} setOpen={setOpen} title="Order Placed">
-        <Typography sx={{ textAlign: "center", paddingBottom: 1 }}>
-          Thank you for your order your tracking id is:
-        </Typography>
-        <Typography
-          sx={{
-            textAlign: "center",
-            fontWeight: 700,
-            paddingBottom: 1,
-            fontSize: 20,
-          }}
-        >
-          {tracker}
-        </Typography>
-        <Typography sx={{ textAlign: "center", paddingBottom: 1 }}>
-          Your order is currently pending, you will be contacted to complete
-          payment
-        </Typography>
-      </Modal>
-
-      {loading && (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <CircularProgress
-            sx={{
-              position: "absolute",
-              zIndex: 1000,
-              top: "45%",
-            }}
-            size={100}
-          />
-        </Box>
-      )}
       <Box
         style={{
-          opacity: loading ? 0.5 : 1,
-          pointerEvents: loading ? "none" : "auto",
           display: "flex",
           flexDirection: "column",
           flex: 1,
         }}
       >
+        <Paper
+          sx={{
+            p: 1,
+            marginBottom: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "primary.main",
+          }}
+        >
+          <Typography sx={{ fontWeight: 800, fontSize: 20, marginLeft: 1 }}>
+            {orderForm?.code?.toString().toUpperCase()}
+            {" - "}
+            {orderForm?.status?.toString().toUpperCase()}
+          </Typography>
+        </Paper>
         <Box
           sx={{
             display: "flex",
@@ -190,41 +139,17 @@ const OrderSummary = ({ orderForm, setActiveStep }) => {
             </Grid>
           </Paper>
         </Grid>
-        <Grid item container spacing={1}>
-          <Grid
-            item
-            xs={12}
-            sm={success ? 12 : 6}
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            {success ? (
-              <PrimaryButton onClick={() => setActiveStep(0)}>
-                Order Again
-              </PrimaryButton>
-            ) : (
-              <SecondaryButton onClick={() => setActiveStep(0)}>
-                Start Again
-              </SecondaryButton>
-            )}
-          </Grid>
-          {!success && (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              sx={{
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              <PrimaryButton onClick={submitOrder}>Order</PrimaryButton>
-            </Grid>
-          )}
+
+        <Grid
+          item
+          xs={12}
+          sx={{
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+          }}
+        >
+          <PrimaryButton onClick={() => setOrderForm(null)}>Back</PrimaryButton>
         </Grid>
       </Box>
     </>

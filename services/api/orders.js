@@ -41,6 +41,31 @@ export const getOrderByRef = async ({ ref }) => {
   return res;
 };
 
+export const getOrderByContact = async ({ contactType, contact }) => {
+  const res = await axios
+    .get(`${base_url}/get-contact-orders/${contactType}/${contact}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      throw new Error(err?.response?.data?.message);
+    });
+
+  return res;
+};
+
+export const getCustomerOrders = async ({ id }) => {
+  const res = await axios
+    .get(`${base_url}/get-customer-orders/${id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+
+  return res;
+};
 const updateOrder = async ({ data }) => {
   const res = await axios
     .put(`${base_url}/update-order/${data}`)
@@ -81,19 +106,6 @@ const getAllOrders = async () => {
 const getActiveOrders = async () => {
   const res = await axios
     .get(`${base_url}/get-active-orders`)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
-
-  return res;
-};
-
-const getCustomerOrders = async ({ customerId }) => {
-  const res = await axios
-    .get(`${base_url}/get-customer-orders`)
     .then((res) => {
       return res.data;
     })

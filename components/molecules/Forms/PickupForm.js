@@ -1,12 +1,17 @@
 import { Grid, TextField, Typography } from "@mui/material";
 import PlacesAutofill from "../PlacesAutofill";
 import MapBox from "../MapBox";
-import { useState } from "react";
-import { Formik, Field, Form } from "formik";
+import { useState, useContext } from "react";
+import { Formik, Form } from "formik";
 import PrimaryButton from "../../atoms/PrimaryButton";
-import theme from "../../../src/theme";
+import SecondaryButton from "../../atoms/SecondaryButton";
+import { useRouter } from "next/router";
+
+import { UserContext } from "../../../services/contexts/userContext";
 
 const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
+  const { session } = useContext(UserContext);
+  const router = useRouter();
   const [coords, setCoords] = useState({ lat: -15.3875, lng: 28.3228 });
   const validate = (values) => {
     const validateNumber = new RegExp(
@@ -99,18 +104,48 @@ const PickupForm = ({ setActiveStep, setOrderForm, orderForm }) => {
           >
             <MapBox lat={coords.lat} lng={coords.lng} setCoords={setCoords} />
           </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            <PrimaryButton type="submit">Next</PrimaryButton>
-          </Grid>
+          {session ? (
+            <Grid
+              item
+              xs={12}
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+              }}
+            >
+              <PrimaryButton type="submit">Next</PrimaryButton>
+            </Grid>
+          ) : (
+            <Grid item container spacing={1}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <SecondaryButton onClick={() => router.push("/login")}>
+                  Login
+                </SecondaryButton>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                }}
+              >
+                <PrimaryButton type="submit">Continue as guest</PrimaryButton>
+              </Grid>
+            </Grid>
+          )}
         </Form>
       )}
     </Formik>
