@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid, Typography, Paper, Box, CircularProgress } from "@mui/material";
 import MapBoxDirections from "./MapBoxDirections";
 import { useState } from "react";
@@ -6,23 +7,22 @@ import { createOrder } from "../../services/api/orders";
 import { useSnackbar } from "notistack";
 import Modal from "../organisms/Modal";
 import SecondaryButton from "../atoms/SecondaryButton";
+import { UserContext } from "../../services/contexts/userContext";
 
-const OrderSummary = ({
-  orderForm,
-  step,
-  setActiveStep,
-  setOrderForm,
-  track,
-}) => {
+const OrderSummary = ({ orderForm, setActiveStep }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [open, setOpen] = useState(false);
   const [tracker, setTracker] = useState();
+  const { session } = React.useContext(UserContext);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const submitOrder = async () => {
     setLoading(true);
+    if (session && session !== loading) {
+      orderForm.user_id = session.id;
+    }
     createOrder({ data: orderForm })
       .then((res) => {
         setLoading(false);
@@ -88,24 +88,6 @@ const OrderSummary = ({
           flex: 1,
         }}
       >
-        {track && (
-          <Paper
-            sx={{
-              p: 1,
-              marginBottom: 2,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "primary.main",
-            }}
-          >
-            <Typography sx={{ fontWeight: 800, fontSize: 20, marginLeft: 1 }}>
-              {orderForm?.code.toString().toUpperCase()}
-              {" - "}
-              {orderForm?.status.toString().toUpperCase()}
-            </Typography>
-          </Paper>
-        )}
         <Box
           sx={{
             display: "flex",
@@ -208,44 +190,42 @@ const OrderSummary = ({
             </Grid>
           </Paper>
         </Grid>
-        {!track && (
-          <Grid item container spacing={1}>
+        <Grid item container spacing={1}>
+          <Grid
+            item
+            xs={12}
+            sm={success ? 12 : 6}
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            {success ? (
+              <PrimaryButton onClick={() => setActiveStep(0)}>
+                Order Again
+              </PrimaryButton>
+            ) : (
+              <SecondaryButton onClick={() => setActiveStep(0)}>
+                Start Again
+              </SecondaryButton>
+            )}
+          </Grid>
+          {!success && (
             <Grid
               item
               xs={12}
-              sm={success ? 12 : 6}
+              sm={6}
               sx={{
                 alignItems: "center",
                 justifyContent: "center",
                 display: "flex",
               }}
             >
-              {success ? (
-                <PrimaryButton onClick={() => setActiveStep(0)}>
-                  Order Again
-                </PrimaryButton>
-              ) : (
-                <SecondaryButton onClick={() => setActiveStep(0)}>
-                  Start Again
-                </SecondaryButton>
-              )}
+              <PrimaryButton onClick={submitOrder}>Order</PrimaryButton>
             </Grid>
-            {!success && (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                sx={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  display: "flex",
-                }}
-              >
-                <PrimaryButton onClick={submitOrder}>Order</PrimaryButton>
-              </Grid>
-            )}
-          </Grid>
-        )}
+          )}
+        </Grid>
       </Box>
     </>
   );
