@@ -1,17 +1,11 @@
 import * as React from "react";
-import {
-  Grid,
-  TextField,
-  CircularProgress,
-  Box,
-  Typography,
-} from "@mui/material";
-import { Formik, Field, Form } from "formik";
+import { Grid, TextField, Box, Typography } from "@mui/material";
+import { Formik, Form } from "formik";
 import PrimaryButton from "../../atoms/PrimaryButton";
 import { getOrderByRef } from "../../../services/api/orders";
 import { useSnackbar } from "notistack";
 
-const TrackForm = ({ setOrder }) => {
+const TrackForm = ({ setOrder, setLoading }) => {
   const validate = (values) => {
     const errors = {};
     if (!values.reference) {
@@ -20,35 +14,12 @@ const TrackForm = ({ setOrder }) => {
     return errors;
   };
 
-  const [loading, setLoading] = React.useState(false);
-
   const { enqueueSnackbar } = useSnackbar();
 
   return (
     <>
-      {loading && (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <CircularProgress
-            sx={{
-              position: "absolute",
-              zIndex: 1000,
-              top: "50%",
-            }}
-            size={60}
-          />
-        </Box>
-      )}
-
       <Box
         sx={{
-          opacity: loading ? 0.5 : 1,
-          pointerEvents: loading ? "none" : "auto",
           display: "flex",
           flexDirection: "column",
           flex: 1,
