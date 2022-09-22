@@ -8,9 +8,12 @@ import { useRouter } from "next/router";
 const Login = () => {
   const { session } = React.useContext(UserContext);
   const router = useRouter();
-  if (session) {
-    router.push("/profile");
-  }
+
+  React.useEffect(() => {
+    if (session) {
+      router.push("/profile");
+    }
+  }, []);
   return (
     <>
       <Layout>
