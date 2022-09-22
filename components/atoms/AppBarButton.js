@@ -2,7 +2,7 @@ import { Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { keyframes } from "@mui/material";
 
-const AppBarButton = ({ children, navigate }) => {
+const AppBarButton = ({ children, navigate, action }) => {
   const router = useRouter();
 
   const spin = keyframes`
@@ -16,6 +16,7 @@ const AppBarButton = ({ children, navigate }) => {
     background-color: white;
   }
 `;
+
   return (
     <Button
       sx={{
@@ -31,7 +32,7 @@ const AppBarButton = ({ children, navigate }) => {
 
         animation: { xs: `${spin} 4s infinite ease`, sm: "none" },
       }}
-      onClick={() => router.push(navigate)}
+      onClick={() => (navigate ? router.push(navigate) : action())}
     >
       <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{children}</Typography>
     </Button>
