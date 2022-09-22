@@ -1,9 +1,12 @@
 import * as React from "react";
-import { Grid, Paper, Typography } from "@mui/material";
-import OrderForm from "../components/organisms/OrderForm";
-import Layout from "../components/organisms/Layout";
+import { Grid } from "@mui/material";
+import Layout from "../../components/organisms/Layout";
+import { UserContext } from "../../services/contexts/userContext";
+import ProfileDashboard from "../../components/organisms/ProfileDashboard";
 
-const Home = () => {
+const Profile = () => {
+  const { session } = React.useContext(UserContext);
+
   return (
     <>
       <Layout>
@@ -14,7 +17,7 @@ const Home = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          maxWidth="lg"
+          maxWidth="md"
         >
           <Grid
             item
@@ -32,7 +35,7 @@ const Home = () => {
               flex: 1,
             }}
           >
-            <OrderForm />
+            <ProfileDashboard user={session} />
           </Grid>
         </Grid>
       </Layout>
@@ -40,4 +43,21 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Profile;
+
+export async function getServerSideProps({ req }) {
+  const token = req.cookies["nkuba-access-token"];
+
+  if (!token || token.length === 0) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}

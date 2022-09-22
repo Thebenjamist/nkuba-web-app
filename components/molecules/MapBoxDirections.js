@@ -3,9 +3,11 @@ import { Paper, Typography } from "@mui/material";
 import * as React from "react";
 import Map, { Source, Layer, Marker } from "react-map-gl";
 import axios from "axios";
+import { useSnackbar } from "notistack";
 
 const MapBox = ({ start, end }) => {
   const [directions, setDirections] = React.useState();
+  const { enqueueSnackbar } = useSnackbar();
 
   const getDirections = () => {
     const tripStart = `${start?.lng}, ${start?.lat}`;
@@ -15,7 +17,9 @@ const MapBox = ({ start, end }) => {
         `https://api.mapbox.com/directions/v5/mapbox/driving/${tripStart};${tripEnd}?alternatives=false&geometries=geojson&language=en&overview=simplified&steps=false&access_token=${process.env.NEXT_PUBLIC_MAPBOX_KEY}`
       )
       .then((res) => setDirections(res.data.routes[0]))
-      .catch((err) => console.log("MapErr: ", err));
+      .catch((err) =>
+        enqueueSnackbar(`Map error: ${err}`, { variant: "error" })
+      );
   };
 
   React.useEffect(() => {
