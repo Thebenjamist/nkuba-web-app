@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
 
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="shortcut icon" href="/rounded.png" />
           <link
             href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
             rel="stylesheet"

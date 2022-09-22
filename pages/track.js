@@ -14,6 +14,7 @@ const Track = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
+          maxWidth="lg"
         >
           <Grid
             item
