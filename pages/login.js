@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Grid } from "@mui/material";
-import TrackingForm from "../components/organisms/TrackingForm";
 import Layout from "../components/organisms/Layout";
+import SignInForm from "../components/organisms/SignInForm";
 
 const Login = () => {
   return (
@@ -32,7 +32,7 @@ const Login = () => {
               flex: 1,
             }}
           >
-            <TrackingForm />
+            <SignInForm />
           </Grid>
         </Grid>
       </Layout>
@@ -41,3 +41,20 @@ const Login = () => {
 };
 
 export default Login;
+
+export async function getServerSideProps({ req }) {
+  const token = req.cookies["nkuba-access-token"];
+
+  if (token && token.length > 0) {
+    return {
+      redirect: {
+        destination: "/profile",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
