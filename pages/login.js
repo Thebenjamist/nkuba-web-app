@@ -2,8 +2,15 @@ import * as React from "react";
 import { Grid } from "@mui/material";
 import Layout from "../components/organisms/Layout";
 import SignInForm from "../components/organisms/SignInForm";
+import { UserContext } from "../services/contexts/userContext";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const { session } = React.useContext(UserContext);
+  const router = useRouter();
+  if (session) {
+    router.push("/profile");
+  }
   return (
     <>
       <Layout>
@@ -41,20 +48,3 @@ const Login = () => {
 };
 
 export default Login;
-
-export async function getServerSideProps({ req }) {
-  const token = req?.cookies["nkuba-access-token"];
-
-  if (token && token.length > 0) {
-    return {
-      redirect: {
-        destination: "/profile",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
