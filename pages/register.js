@@ -41,3 +41,20 @@ const Register = () => {
 };
 
 export default Register;
+
+export async function getServerSideProps({ req }) {
+  const token = req.cookies["nkuba-access-token"];
+
+  if (token && token.length > 0) {
+    return {
+      redirect: {
+        destination: "/profile",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
