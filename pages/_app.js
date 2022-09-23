@@ -16,28 +16,25 @@ export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
   return (
-    <UserProvider>
-      <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            <meta
-              name="viewport"
-              content="initial-scale=1, width=device-width"
-            />
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-            <style>
-              @import
-              url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
-            </style>
-          </Head>
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+        </style>
+      </Head>
+      <UserProvider>
+        <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <Component {...pageProps} />
           </ThemeProvider>
-        </CacheProvider>
-      </SnackbarProvider>
-    </UserProvider>
+        </SnackbarProvider>
+      </UserProvider>
+    </CacheProvider>
   );
 }
 
