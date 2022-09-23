@@ -3,9 +3,17 @@ import { Grid } from "@mui/material";
 import Layout from "../../components/organisms/Layout";
 import { UserContext } from "../../services/contexts/userContext";
 import ProfileDashboard from "../../components/organisms/ProfileDashboard";
+import { useRouter } from "next/router";
 
 const Profile = () => {
   const { session } = React.useContext(UserContext);
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  });
 
   return (
     <>
@@ -44,20 +52,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-export async function getServerSideProps({ req }) {
-  const token = req.cookies["nkuba-access-token"];
-
-  if (!token || token.length === 0) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
