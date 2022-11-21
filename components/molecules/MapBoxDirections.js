@@ -59,8 +59,14 @@ const MapBox = ({ start, end }) => {
       {directions && (
         <Map
           initialViewState={{
-            ...center,
-            zoom: 13,
+            bounds: [
+              [start.lng, start.lat], // southwestern corner of the bounds
+              [end.lng, end.lat], // northeastern corner of the bounds
+            ],
+            fitBoundsOptions: {
+              padding: { left: 20, right: 20, top: 20, bottom: 20 },
+              maxZoom: 6,
+            },
           }}
           minZoom={12}
           maxZoom={16}
