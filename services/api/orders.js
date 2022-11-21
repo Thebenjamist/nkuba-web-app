@@ -106,7 +106,7 @@ export const getAllOrders = async () => {
 
 export const updateOrderStatus = async ({ data }) => {
   const res = await axios
-    .put(`${base_url}/update-order-status/`, data)
+    .post(`${base_url}/update-order-status`, data)
     .then((res) => {
       return res.data;
     })
