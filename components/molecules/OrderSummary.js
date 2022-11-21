@@ -56,8 +56,8 @@ const OrderSummary = ({ orderForm, setActiveStep }) => {
           {tracker}
         </Typography>
         <Typography sx={{ textAlign: "center", paddingBottom: 1 }}>
-          Your order is currently pending, you will be contacted to complete
-          payment
+          Your order is currently pending, you will be contacted to complete the
+          process
         </Typography>
       </Modal>
 
@@ -189,6 +189,15 @@ const OrderSummary = ({ orderForm, setActiveStep }) => {
               </Grid>
             </Grid>
           </Paper>
+        </Grid>
+        <Grid item xs={12} sx={{ marginBottom: "16px" }}>
+          <PrimaryButton
+            style={{ width: "100%" }}
+            onClick={() => null}
+            disabled
+          >
+            BLACK FRIDAY!! K35 FOR ANY TRIP LESS THAN 20KM
+          </PrimaryButton>
         </Grid>
         <Grid item container spacing={1}>
           <Grid
