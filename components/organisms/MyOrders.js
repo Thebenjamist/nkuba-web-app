@@ -46,9 +46,10 @@ const MyOrders = () => {
         width: "100%",
         height: "100%",
         minHeight: 300,
+        display: "flex",
       }}
     >
-      {loading && (
+      {loading ? (
         <Box
           sx={{
             width: "100%",
@@ -65,34 +66,35 @@ const MyOrders = () => {
             size={60}
           />
         </Box>
+      ) : (
+        <Grid
+          container
+          sx={{
+            opacity: loading ? 0.5 : 1,
+            pointerEvents: loading ? "none" : "auto",
+            width: "100%",
+          }}
+        >
+          {order || orders ? (
+            <>
+              {order ? (
+                <TrackedOrder orderForm={order} setOrderForm={setOrder} />
+              ) : (
+                <TrackingOrdersList
+                  setOrder={setOrder}
+                  orders={orders}
+                  setOrders={setOrders}
+                  sender={trackType === "sender" ? true : false}
+                  profile
+                  user={session}
+                />
+              )}
+            </>
+          ) : (
+            <></>
+          )}
+        </Grid>
       )}
-      <Grid
-        container
-        sx={{
-          opacity: loading ? 0.5 : 1,
-          pointerEvents: loading ? "none" : "auto",
-          width: "100%",
-        }}
-      >
-        {order || orders ? (
-          <>
-            {order ? (
-              <TrackedOrder orderForm={order} setOrderForm={setOrder} />
-            ) : (
-              <TrackingOrdersList
-                setOrder={setOrder}
-                orders={orders}
-                setOrders={setOrders}
-                sender={trackType === "sender" ? true : false}
-                profile
-                user={session}
-              />
-            )}
-          </>
-        ) : (
-          <></>
-        )}
-      </Grid>
     </Paper>
   );
 };
