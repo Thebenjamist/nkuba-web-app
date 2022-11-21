@@ -26,7 +26,7 @@ export default function MyApp(props) {
         </style>
       </Head>
       <UserProvider>
-        <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
+        <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
           <ThemeProvider theme={theme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
