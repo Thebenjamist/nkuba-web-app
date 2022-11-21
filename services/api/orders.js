@@ -15,14 +15,14 @@ export const createOrder = async ({ data }) => {
   return res;
 };
 
-const getOrder = async ({ id }) => {
+export const getOrder = async ({ id }) => {
   const res = await axios
     .get(`${base_url}/get-order/${id}`)
     .then((res) => {
       return res.data;
     })
     .catch((err) => {
-      return err;
+      throw new Error(err?.response?.data?.message);
     });
 
   return res;
@@ -61,7 +61,7 @@ export const getCustomerOrders = async ({ id }) => {
       return res.data;
     })
     .catch((err) => {
-      return err;
+      throw new Error(err?.response?.data?.message);
     });
 
   return res;
@@ -91,14 +91,27 @@ const deleteOrder = async ({ id }) => {
 
   return res;
 };
-const getAllOrders = async () => {
+export const getAllOrders = async () => {
   const res = await axios
     .get(`${base_url}/get-all-orders`)
     .then((res) => {
       return res.data;
     })
     .catch((err) => {
-      return err;
+      throw new Error(err?.response?.data?.message);
+    });
+
+  return res;
+};
+
+export const updateOrderStatus = async ({ data }) => {
+  const res = await axios
+    .put(`${base_url}/update-order-status/`, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      throw new Error(err?.response?.data?.message);
     });
 
   return res;

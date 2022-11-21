@@ -1,19 +1,128 @@
 import React from "react";
-import { Grid, Typography, Paper, Box, CircularProgress } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Paper,
+  Box,
+  CircularProgress,
+  Link,
+  TextField,
+} from "@mui/material";
 import MapBoxDirections from "./MapBoxDirections";
 import { useState } from "react";
 import PrimaryButton from "../atoms/PrimaryButton";
-import { createOrder } from "../../services/api/orders";
+import {
+  getAllOrders,
+  getOrder,
+  updateOrderStatus,
+} from "../../services/api/orders";
 import { useSnackbar } from "notistack";
 import Modal from "../organisms/Modal";
 import SecondaryButton from "../atoms/SecondaryButton";
 import { UserContext } from "../../services/contexts/userContext";
+import { useRouter } from "next/router";
+import Select from "../molecules/Select";
 
-const OrderSummary = ({ orderForm, setOrderForm }) => {
+const TrackedOrder = ({ orderForm, setOrderForm, setOrders }) => {
   const { session } = React.useContext(UserContext);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [status, setStatus] = React.useState(orderForm?.status);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const options = [
+    { pending: "Pending" },
+    { confirmed: "Confirmed" },
+    { ["in-progress"]: "In-progress" },
+    { completed: "Completed" },
+    { cancelled: "Cancelled" },
+  ];
+  const changeStatus = async () => {
+    setLoading(true);
+    const data = {
+      id: orderForm.id,
+      status,
+    };
+    await updateOrderStatus({ data })
+      .then(async () => {
+        await getAllOrders()
+          .then((res) => setOrders(res.data))
+          .catch((err) => {
+            enqueueSnackbar(`${err.toString()}`, {
+              variant: "error",
+            });
+            setOpen(false);
+            setLoading(false);
+          });
+        await getOrder({ id: orderForm?.id })
+          .then((res) => {
+            enqueueSnackbar("Successfully changed status", {
+              variant: "success",
+            });
+            setLoading(false);
+            setOpen(false);
+            setOrderForm(res.data);
+          })
+          .catch((err) => {
+            enqueueSnackbar(`${err.toString()}`, {
+              variant: "error",
+            });
+            setOpen(false);
+            setLoading(false);
+          });
+      })
+      .catch((err) => {
+        enqueueSnackbar(`${err.toString()}`, {
+          variant: "error",
+        });
+        setOpen(false);
+        setLoading(false);
+      });
+  };
 
   return (
     <>
+      <Modal open={open} setOpen={setOpen} title="Update Status">
+        {loading ? (
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <CircularProgress
+              sx={{
+                position: "absolute",
+                zIndex: 1000,
+                top: "40%",
+              }}
+              size={60}
+            />
+          </Box>
+        ) : (
+          <>
+            <Grid item xs={12} sx={{ marginTop: 4 }}>
+              <Select
+                option={status}
+                setOption={setStatus}
+                options={options}
+                label
+              />
+            </Grid>
+            <PrimaryButton
+              style={{
+                width: "100%",
+              }}
+              onClick={() => changeStatus()}
+            >
+              Submit
+            </PrimaryButton>
+          </>
+        )}
+      </Modal>
       <Box
         style={{
           display: "flex",
@@ -37,6 +146,20 @@ const OrderSummary = ({ orderForm, setOrderForm }) => {
             {orderForm?.status?.toString().toUpperCase()}
           </Typography>
         </Paper>
+        {session?.["custom:role"] === "driver" && (
+          <Grid item xs={12} style={{}}>
+            <PrimaryButton
+              style={{
+                backgroundColor: "orange",
+                width: "100%",
+                marginBottom: "16px",
+              }}
+              onClick={() => setOpen(true)}
+            >
+              Update status
+            </PrimaryButton>
+          </Grid>
+        )}
         <Box
           sx={{
             display: "flex",
@@ -139,6 +262,35 @@ const OrderSummary = ({ orderForm, setOrderForm }) => {
             </Grid>
           </Paper>
         </Grid>
+        {session?.["custom:role"] === "driver" && (
+          <>
+            <Grid item xs={12} sx={{ marginBottom: "16px" }}>
+              <Link
+                href={`https://www.google.com/maps/dir/?api=1&origin=&destination=${orderForm.senderCoords.lat},${orderForm.senderCoords.lng}&travelmode=driving`}
+                target="_blank"
+                underline="none"
+              >
+                <PrimaryButton style={{ width: "100%" }} onClick={() => null}>
+                  Navigate to sender
+                </PrimaryButton>
+              </Link>
+            </Grid>
+            <Grid item xs={12} sx={{ marginBottom: "16px" }}>
+              <Link
+                href={`https://www.google.com/maps/dir/?api=1&origin=&destination=${orderForm.recipientCoords.lat},${orderForm.recipientCoords.lng}&travelmode=driving`}
+                target="_blank"
+                underline="none"
+              >
+                <PrimaryButton
+                  style={{ width: "100%", backgroundColor: "green" }}
+                  onClick={() => null}
+                >
+                  Navigate to recipient
+                </PrimaryButton>
+              </Link>
+            </Grid>
+          </>
+        )}
 
         <Grid
           item
@@ -156,4 +308,4 @@ const OrderSummary = ({ orderForm, setOrderForm }) => {
   );
 };
 
-export default OrderSummary;
+export default TrackedOrder;

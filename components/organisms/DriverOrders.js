@@ -4,10 +4,10 @@ import { Paper, Grid, Box, CircularProgress } from "@mui/material";
 import TrackedOrder from "../molecules/TrackedOrder";
 import TrackingOrdersList from "../molecules/TrackingOrdersList";
 import { UserContext } from "../../services/contexts/userContext";
-import { getCustomerOrders } from "../../services/api/orders";
+import { getAllOrders } from "../../services/api/orders";
 import { useSnackbar } from "notistack";
 
-const MyOrders = () => {
+const DriverOrders = () => {
   const { session } = React.useContext(UserContext);
   const [order, setOrder] = React.useState();
   const [orders, setOrders] = React.useState();
@@ -19,14 +19,14 @@ const MyOrders = () => {
   React.useEffect(() => {
     const fetchOrders = () => {
       setLoading(true);
-      getCustomerOrders({ id: session.id })
+      getAllOrders()
         .then((res) => {
           setOrders(res.data);
-          enqueueSnackbar("Fetched user's orders", { variant: "success" });
+          enqueueSnackbar("Fetched all orders", { variant: "success" });
           setLoading(false);
         })
         .catch(() => {
-          enqueueSnackbar("Failed to fetch users orders", {
+          enqueueSnackbar("Failed to fetch orders", {
             variant: "error",
           });
           setLoading(false);
@@ -78,7 +78,11 @@ const MyOrders = () => {
           {order || orders ? (
             <>
               {order ? (
-                <TrackedOrder orderForm={order} setOrderForm={setOrder} />
+                <TrackedOrder
+                  orderForm={order}
+                  setOrderForm={setOrder}
+                  setOrders={setOrders}
+                />
               ) : (
                 <TrackingOrdersList
                   setOrder={setOrder}
@@ -99,4 +103,4 @@ const MyOrders = () => {
   );
 };
 
-export default MyOrders;
+export default DriverOrders;
