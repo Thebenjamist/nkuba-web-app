@@ -38,6 +38,26 @@ const ProfileDashboard = ({ user }) => {
             My orders
           </PrimaryButton>
         </Grid>
+
+        {user?.["custom:role"] === "driver" && (
+          <>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 2,
+                marginTop: 2,
+              }}
+            >
+              <PrimaryButton onClick={() => router.push("/profile/driver")}>
+                Driver Orders
+              </PrimaryButton>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Paper>
   );

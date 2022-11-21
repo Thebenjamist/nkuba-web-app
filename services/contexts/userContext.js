@@ -15,7 +15,17 @@ const UserProvider = ({ children }) => {
     };
     checkSession({ data })
       .then((res) => {
-        setSession(res.data.user);
+        const ses = res.data.UserAttributes;
+
+        var result = {};
+        for (var i = 0; i < ses?.length; i++) {
+          result[ses[i]?.Name] = ses[i]?.Value;
+        }
+        const params = {
+          ...res?.data?.user,
+          ...result,
+        };
+        setSession(params);
       })
       .catch((err) => {
         clear();
