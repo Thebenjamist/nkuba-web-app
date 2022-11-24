@@ -1,7 +1,7 @@
 import Place from "@mui/icons-material/Place";
 import { Paper, Typography } from "@mui/material";
 import * as React from "react";
-import Map, { LngLatBounds, Marker } from "react-map-gl";
+import Map, { LngLatBounds, Marker, GeolocateControl } from "react-map-gl";
 import Pin from "../atoms/Pin";
 
 const MapBox = ({ lat, lng, setCoords }) => {
@@ -58,6 +58,18 @@ const MapBox = ({ lat, lng, setCoords }) => {
           >
             <Place fontSize="large" color="primary" />
           </Marker>
+          <GeolocateControl
+            showUserLocation
+            onGeolocate={(res) => {
+              const e = {
+                lngLat: {
+                  lng: res.coords.longitude,
+                  lat: res.coords.latitude,
+                },
+              };
+              handleMapClick(e);
+            }}
+          />
         </Map>
       )}
     </Paper>
