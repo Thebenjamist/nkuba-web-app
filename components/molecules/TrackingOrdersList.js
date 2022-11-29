@@ -4,14 +4,18 @@ import {
   Typography,
   Paper,
   Box,
-  CircularProgress,
   Button,
   TextField,
   MenuItem,
+  InputAdornment,
 } from "@mui/material";
 import PrimaryButton from "../atoms/PrimaryButton";
 import { UserContext } from "../../services/contexts/userContext";
 import { useRouter } from "next/router";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { MobileDatePicker } from "@mui/x-date-pickers";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 const TrackingOrdersList = ({
   orders,
@@ -52,14 +56,27 @@ const TrackingOrdersList = ({
   ];
 
   const [status, setStatus] = React.useState("all");
+  const [date, setDate] = React.useState(new Date());
 
   const handleChange = (event) => {
     setStatus(event.target.value);
   };
 
   const filteredOrders =
-    status !== "all" ? orders.filter((item) => item.status === status) : orders;
-
+    status !== "all"
+      ? orders.filter((item) =>
+          date != null
+            ? item.status === status &&
+              new Date(item.pickupDate).toDateString() ===
+                new Date(date).toDateString()
+            : item.status === status
+        )
+      : orders.filter((item) =>
+          date != null
+            ? new Date(item.pickupDate).toDateString() ===
+              new Date(date).toDateString()
+            : orders
+        );
   return (
     <>
       <Box
@@ -113,7 +130,7 @@ const TrackingOrdersList = ({
             <>
               <TextField
                 select
-                label="Filter"
+                label="Status"
                 value={status}
                 onChange={handleChange}
                 sx={{
@@ -126,6 +143,36 @@ const TrackingOrdersList = ({
                   </MenuItem>
                 ))}
               </TextField>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <MobileDatePicker
+                  label="Pickup date"
+                  inputFormat="dd/MM/yyyy"
+                  value={date}
+                  onChange={setDate}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <CalendarMonthIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                  renderInput={(params) => (
+                    <div style={{ display: "flex", marginBottom: 16 }}>
+                      <TextField
+                        sx={{
+                          width: "75%",
+                          marginRight: 1,
+                        }}
+                        {...params}
+                      />
+                      <PrimaryButton onClick={() => setDate(null)}>
+                        All dates
+                      </PrimaryButton>
+                    </div>
+                  )}
+                />
+              </LocalizationProvider>
+
               {filteredOrders.map((order) => (
                 <Button
                   sx={{
