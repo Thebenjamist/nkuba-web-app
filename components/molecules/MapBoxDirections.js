@@ -29,6 +29,22 @@ const MapBox = ({ start, end }) => {
   dir?.push([end?.lng, end?.lat]);
   dir?.unshift([start?.lng, start?.lat]);
 
+  const price = () => {
+    const distance = directions?.distance / 1000;
+    let amount;
+
+    if (distance < 5) {
+      amount = "K30";
+    }
+    if (distance > 5 && distance < 10) {
+      amount = "K40";
+    }
+    if (distance < 20 && distance > 10) amount = "K60";
+
+    if (distance > 20) amount = "Please call 0770631940";
+    return amount;
+  };
+
   const geojson = {
     type: "FeatureCollection",
     features: [
@@ -95,7 +111,7 @@ const MapBox = ({ start, end }) => {
                 Distance: {Math.round(directions?.distance / 1000)}km
               </Typography>
               <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                Duration: {Math.round(directions?.duration / 60)} mins
+                Price: {price()}
               </Typography>
             </Paper>
           </Marker>
