@@ -81,10 +81,9 @@ const MapBox = ({ start, end }) => {
             ],
             fitBoundsOptions: {
               padding: { left: 20, right: 20, top: 20, bottom: 20 },
-              maxZoom: 6,
             },
           }}
-          minZoom={12}
+          minZoom={10}
           maxZoom={16}
           style={{ width: "100%", height: 300 }}
           mapStyle={process.env.NEXT_PUBLIC_MAPBOX_STYLE}
